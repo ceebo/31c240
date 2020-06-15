@@ -5,7 +5,7 @@ class silverfish:
     timeline = []
     columns = []
     b_hep = g.parse("bo$3o$ob2o!", 7, 31)
-    absorber = g.parse("2o$2o!", 14, 31)
+    absorber = g.parse("2o$2o!", 50, 66)
 
     def __init__(self):
         self.add_column(0, 0, 3)
@@ -33,6 +33,22 @@ class silverfish:
         self.add_event(494, 2)
         self.add_event(514, 3)
         self.add_event(439, 4)
+        self.add_event(20, 5)
+    
+    def add_forerake(self):
+        self.add_event(0, 5)
+        self.add_event(879, 4)
+        self.add_event(954, 3)
+        self.add_event(974, 2)
+        self.add_event(899, 1)
+        self.add_event(20, 0)
+    
+    def add_backrake(self):
+        self.add_event(0, 0)
+        self.add_event(19, 1)
+        self.add_event(96, 2)
+        self.add_event(116, 3)
+        self.add_event(39, 4)
         self.add_event(20, 5)
     
     def construct(self):
@@ -79,7 +95,7 @@ class silverfish:
 s = silverfish()
 
 s.add_rephaser()
-s.advance(2000)
-s.add_rephaser()
+s.advance(1964)
+s.add_forerake()
 
 s.construct()
