@@ -47,12 +47,12 @@ class silverfish:
         # first backrake
         self.add_backrake()
         # second backrake
-        self.add_backrake(2260)
+        self.add_backrake(1532)
         # R2L23F:
         # block puffer
-        self.add_standard_row(10, 3974)
+        self.add_standard_row(10, 2774)
         # teardrop puffer
-        self.add_standard_row(-7, 5998)
+        self.add_standard_row(-7, 4558)
 
     def construct(self):
         g.new('')
