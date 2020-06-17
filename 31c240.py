@@ -27,60 +27,32 @@ class silverfish:
     def add_event(self, t, c):
         self.timeline.append((self.time+t, c))
 
-    def add_rephaser(self):
-        self.add_event(0, 0)
-        self.add_event(419, 1)
-        self.add_event(494, 2)
-        self.add_event(514, 3)
-        self.add_event(439, 4)
-        self.add_event(20, 5)
+    def add_row(self, ts, offset=0):
+        for i, t in enumerate(ts):
+            self.add_event(offset+t, i)
+
+    def add_standard_row(self, delta, offset=0):
+        self.add_row([0, 656-delta, 731-delta, 751-delta, 676-delta, 20], offset)
+
+    def add_forerake(self, offset=0):
+        self.add_row([20, 899, 974, 954, 879, 0], offset)
     
-    def add_forerake(self):
-        self.add_event(0, 5)
-        self.add_event(879, 4)
-        self.add_event(954, 3)
-        self.add_event(974, 2)
-        self.add_event(899, 1)
-        self.add_event(20, 0)
-    
-    def add_backrake(self):
-        self.add_event(0, 0)
-        self.add_event(19, 1)
-        self.add_event(96, 2)
-        self.add_event(116, 3)
-        self.add_event(39, 4)
-        self.add_event(20, 5)
+    def add_backrake(self, offset=0):
+        self.add_row([0, 19, 96, 116, 39, 20], offset)
+
+    def add_rephaser(self, offset=0):
+        self.add_standard_row(237, offset)
 
     def add_R4L8F(self):
         # first backrake
-        self.add_event(0, 0)
-        self.add_event(19, 1)
-        self.add_event(96, 2)
-        self.add_event(116, 3)
-        self.add_event(39, 4)
-        self.add_event(20, 5)
+        self.add_backrake()
         # second backrake
-        self.add_event(0+2260, 0)
-        self.add_event(19+2260, 1)
-        self.add_event(96+2260, 2)
-        self.add_event(116+2260, 3)
-        self.add_event(39+2260, 4)
-        self.add_event(20+2260, 5)
+        self.add_backrake(2260)
         # R2L23F:
         # block puffer
-        self.add_event(0+4213, 0)
-        self.add_event(19+4213+627, 1)
-        self.add_event(96+4213+625, 2)
-        self.add_event(116+4213+625, 3)
-        self.add_event(39+4213+627, 4)
-        self.add_event(20+4213, 5)
+        self.add_standard_row(10, 3974)
         # teardrop puffer
-        self.add_event(0+5998, 0)
-        self.add_event(879+5998-216, 1)
-        self.add_event(954+5998-216, 2)
-        self.add_event(974+5998-216, 3)
-        self.add_event(899+5998-216, 4)
-        self.add_event(20+5998, 5)
+        self.add_standard_row(-7, 5998)
 
     def construct(self):
         g.new('')
@@ -114,7 +86,8 @@ class silverfish:
                 rephasing[c] += 31 - 9
             else:
                 for x, y, _ in self.columns:
-                    g.putcells(g.parse("2o$2o!", x, top_y+y))
+                    g.putcells(g.parse("2o$2o!", x, 2*top_y+y))
+                    g.putcells(g.parse("2o$2o!", x, 2*top_y-31+y))
                 for _ in range(31):
                     top_y -= 1
                     g.setcell(self.left, top_y, 6)
