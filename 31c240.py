@@ -50,7 +50,38 @@ class silverfish:
         self.add_event(116, 3)
         self.add_event(39, 4)
         self.add_event(20, 5)
-    
+
+    def add_R4L8F(self):
+        # first backrake
+        self.add_event(0, 0)
+        self.add_event(19, 1)
+        self.add_event(96, 2)
+        self.add_event(116, 3)
+        self.add_event(39, 4)
+        self.add_event(20, 5)
+        # second backrake
+        self.add_event(0+2260, 0)
+        self.add_event(19+2260, 1)
+        self.add_event(96+2260, 2)
+        self.add_event(116+2260, 3)
+        self.add_event(39+2260, 4)
+        self.add_event(20+2260, 5)
+        # R2L23F:
+        # block puffer
+        self.add_event(0+4213, 0)
+        self.add_event(19+4213+627, 1)
+        self.add_event(96+4213+625, 2)
+        self.add_event(116+4213+625, 3)
+        self.add_event(39+4213+627, 4)
+        self.add_event(20+4213, 5)
+        # teardrop puffer
+        self.add_event(0+5998, 0)
+        self.add_event(879+5998-216, 1)
+        self.add_event(954+5998-216, 2)
+        self.add_event(974+5998-216, 3)
+        self.add_event(899+5998-216, 4)
+        self.add_event(20+5998, 5)
+
     def construct(self):
         g.new('')
         g.setrule("LifeHistory")
@@ -94,8 +125,11 @@ class silverfish:
                 
 s = silverfish()
 
-s.add_rephaser()
-s.advance(1964)
-s.add_forerake()
+# sample bi-block puffer
+# s.add_backrake()
+# s.advance(2048)
+# s.add_forerake()
+# s.advance(3000)
+s.add_R4L8F()
 
 s.construct()
